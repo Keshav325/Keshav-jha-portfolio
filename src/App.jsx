@@ -5,7 +5,6 @@ import { ShootingStars } from "./components/ui/shooting-stars";
 import { StarsBackground } from "./components/ui/stars-background";
 import Tech_stack from "./components/Tech_stack";
 
-import Contact from "./components/Contact";
 
 function App() {
   return (
@@ -23,7 +22,7 @@ function App() {
       <About />
      < Tech_stack />
       <Projects />
-      <Contact />
+      
     </div>
   );
 }
