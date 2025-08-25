@@ -11,9 +11,9 @@ function App() {
   return (
     <div className="relative">
       {/* Hero section (with exploding beam inside it) */}
-      <section className="relative z-10 bg-black">
+      <section className="relative z-10">
         <Hero />
-      </section>
+       </section>
 
       {/* Stars + Shooting Stars appear globally behind everything else */}
       <StarsBackground />
