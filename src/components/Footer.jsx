@@ -5,10 +5,24 @@ import { MdEmail } from "react-icons/md";
 export default function SpaceFooter() {
   return (
     <footer className="relative overflow-hidden bg-gradient-to-t from-black via-[#0a0016] to-transparent py-12 border-t border-purple-500/40">
-      {/* Animated stars background */}
-      <div className="absolute inset-0">
-        <div className="stars absolute inset-0"></div>
-        <div className="twinkling absolute inset-0"></div>
+      {/* Starfield background */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(60)].map((_, i) => (
+          <motion.span
+            key={i}
+            className="absolute w-0.5 h-0.5 bg-white rounded-full"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+            }}
+            animate={{ opacity: [0, 1, 0] }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+            }}
+          />
+        ))}
       </div>
 
       {/* Nebula glow line */}
@@ -53,13 +67,6 @@ export default function SpaceFooter() {
           © 2025 Keshav Jha · Crafted with 🚀✨
         </p>
       </div>
-
-      {/* Shooting star */}
-      <motion.div
-        className="absolute w-1 h-1 bg-white rounded-full top-5 left-1/4"
-        animate={{ x: 600, y: 200, opacity: [1, 0] }}
-        transition={{ repeat: Infinity, duration: 4, delay: 3 }}
-      />
     </footer>
   );
 }
