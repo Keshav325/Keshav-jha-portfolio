@@ -4,7 +4,8 @@ import Projects from "./components/Projects";
 import { ShootingStars } from "./components/ui/shooting-stars";
 import { StarsBackground } from "./components/ui/stars-background";
 import Tech_stack from "./components/Tech_stack";
-
+import Contact_us from "./components/Contact_us";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
       <About />
      < Tech_stack />
       <Projects />
+      <Contact_us />
+      <Footer />
       
     </div>
   );

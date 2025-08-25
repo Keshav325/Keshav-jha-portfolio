@@ -2,31 +2,35 @@
 import { cn } from "../../lib/utils";
 import React, { useEffect, useState, useRef } from "react";
 
-// instead of only edges, spawn anywhere inside the screen
+// get random spawn point anywhere in the viewport
 const getRandomStartPoint = () => {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
   return {
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
+    x: Math.random() * w,
+    y: Math.random() * h,
     angle: Math.random() * 360, // random direction
   };
 };
 
 export const ShootingStars = ({
-  minSpeed = 1,       // slower min speed
-  maxSpeed = 5,       // slower max speed
-  minDelay = 500,     // spawn rate (slower)
-  maxDelay = 2000,
-  starColor = "#9E00FF",   // purple
-  trailColor = "#2EB9DF",  // cyan
-  starWidth = 25,     // medium-long
-  starHeight = 3,     // medium thickness
-  maxStars = 50,      // allow more meteors
+  minSpeed = 2,
+  maxSpeed = 6,
+  minDelay = 100,    // faster spawn rate
+  maxDelay = 800,
+  starColor = "#9E00FF",
+  trailColor = "#2EB9DF",
+  starWidth = 25,
+  starHeight = 3,
+  maxStars = 80,     // allow more meteors
   className,
 }) => {
   const [stars, setStars] = useState([]);
   const svgRef = useRef(null);
 
   useEffect(() => {
+    let spawnTimeout;
+
     const createStar = () => {
       const { x, y, angle } = getRandomStartPoint();
       const newStar = {
@@ -45,11 +49,14 @@ export const ShootingStars = ({
         return [...prevStars, newStar];
       });
 
+      // schedule next star spawn
       const randomDelay = Math.random() * (maxDelay - minDelay) + minDelay;
-      setTimeout(createStar, randomDelay);
+      spawnTimeout = setTimeout(createStar, randomDelay);
     };
 
-    createStar();
+    createStar(); // start loop
+
+    return () => clearTimeout(spawnTimeout);
   }, [minSpeed, maxSpeed, minDelay, maxDelay, maxStars]);
 
   useEffect(() => {
@@ -62,22 +69,20 @@ export const ShootingStars = ({
             const newY =
               star.y + star.speed * Math.sin((star.angle * Math.PI) / 180);
             const newDistance = star.distance + star.speed;
-            const newScale = 1 + newDistance / 200; // grows slower
+            const newScale = 1 + newDistance / 200;
 
             let newOpacity = star.opacity;
-
             if (
-              newX < -100 ||
-              newX > window.innerWidth + 100 ||
-              newY < -100 ||
-              newY > window.innerHeight + 100
+              newX < -200 ||
+              newX > window.innerWidth + 200 ||
+              newY < -200 ||
+              newY > window.innerHeight + 200
             ) {
-              return null; // off screen
+              return null; // remove when off screen
             }
 
-            // fade out gradually
-            if (newDistance > 400) {
-              newOpacity = Math.max(0, star.opacity - 0.01);
+            if (newDistance > 500) {
+              newOpacity = Math.max(0, star.opacity - 0.02);
             }
 
             return {

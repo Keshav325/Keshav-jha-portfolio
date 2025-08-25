@@ -29,45 +29,58 @@ const techStack = [
 
 export default function Tech() {
   return (
-    <div className="relative w-full overflow-hidden py-16">
-      {/* Subtle glowing gradient background strip */}
-      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10 blur-3xl opacity-40 pointer-events-none" />
+    <div className="relative w-full overflow-hidden py-20">
+      {/* Title */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-center mb-12 relative z-10"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+          🚀 My Tech Stack
+        </h2>
+        <p className="mt-3 text-gray-400">
+          Technologies I explore across my coding galaxy
+        </p>
+      </motion.div>
 
-      {/* Tilted container with glass effect */}
-      <div className="rotate-[-3deg]">
-        <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-xl mx-4" />
+      {/* Floating icons marquee */}
+      <motion.div
+        className="flex gap-20 text-7xl relative"
+        animate={{ x: ["0%", "-100%"] }}
+        transition={{
+          repeat: Infinity,
+          duration: 35,
+          ease: "linear",
+        }}
+      >
+        {[...techStack, ...techStack].map((tech, i) => (
+          <motion.div
+            key={i}
+            whileHover={{ scale: 1.3 }}
+            transition={{ type: "spring", stiffness: 200, damping: 10 }}
+            className="flex flex-col items-center min-w-[160px] group relative"
+          >
+            {/* Aura glow */}
+            <div className="absolute w-24 h-24 rounded-full bg-gradient-to-r from-purple-500/30 via-cyan-400/30 to-pink-500/30 blur-3xl opacity-50 group-hover:opacity-90 transition duration-300" />
 
-        <motion.div
-          className="flex gap-16 text-7xl relative"
-          animate={{ x: ["0%", "-100%"] }}
-          transition={{
-            repeat: Infinity,
-            duration: 25,
-            ease: "linear",
-          }}
-        >
-          {[...techStack, ...techStack].map((tech, i) => (
+            {/* Icon */}
             <motion.div
-              key={i}
-              whileHover={{ scale: 1.25 }}
-              transition={{ type: "spring", stiffness: 200, damping: 10 }}
-              className="flex flex-col items-center justify-center min-w-[150px] group"
+              animate={{ y: [0, -5, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              className="relative group-hover:drop-shadow-[0_0_20px_rgba(0,200,255,0.9)]"
             >
-              {/* Icon with glow pulse */}
-              <motion.div
-                animate={{ opacity: [0.8, 1, 0.8] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                className="transition-transform duration-300 group-hover:drop-shadow-[0_0_20px_rgba(0,212,255,0.9)]"
-              >
-                {tech.icon}
-              </motion.div>
-              <span className="mt-3 text-sm text-gray-300 group-hover:text-white tracking-wide">
-                {tech.name}
-              </span>
+              {tech.icon}
             </motion.div>
-          ))}
-        </motion.div>
-      </div>
+
+            {/* Label */}
+            <span className="mt-3 text-sm text-gray-300 group-hover:text-white">
+              {tech.name}
+            </span>
+          </motion.div>
+        ))}
+      </motion.div>
     </div>
   );
 }
