@@ -21,7 +21,7 @@ function App() {
 
       {/* Other sections will show stars */}
       <About />
-     < Tech_stack />
+      <Tech_stack />
       <Projects />
       <Contact_us />
       <Footer />

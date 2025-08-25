@@ -9,9 +9,9 @@ const ContactUs = () => {
   return (
     <section
       ref={viewportRef}
-      className="relative h-screen w-full flex flex-col items-center justify-center gap-10 text-white overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col items-center justify-center gap-10 text-white overflow-hidden"
     >
-      {/* Keep background transparent so your starry global bg shows through */}
+      {/* Title */}
       <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
         Get in Touch 🚀
       </h1>
